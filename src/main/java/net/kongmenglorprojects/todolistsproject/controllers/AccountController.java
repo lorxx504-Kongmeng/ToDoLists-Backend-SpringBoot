@@ -1,5 +1,6 @@
 package net.kongmenglorprojects.todolistsproject.controllers;
 import net.kongmenglorprojects.todolistsproject.dto.createDTO;
+import net.kongmenglorprojects.todolistsproject.dto.loginDTO;
 import net.kongmenglorprojects.todolistsproject.entities.AccountEntity;
 import org.springframework.web.bind.annotation.*;
 import net.kongmenglorprojects.todolistsproject.services.AccountService;
@@ -15,5 +16,9 @@ public class AccountController {
     @PostMapping
     public AccountEntity createAccount(@RequestBody createDTO dto) {
         return this.accountService.createAccount(dto);
+    }
+    @GetMapping
+    public AccountEntity login(@RequestParam String email, @RequestParam String password) {
+        return this.accountService.login(email,password);
     }
 }
