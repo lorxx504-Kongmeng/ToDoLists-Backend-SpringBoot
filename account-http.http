@@ -1,0 +1,13 @@
+POST http://localhost:8008/api/account
+Content-Type: application/json
+
+{
+  "fname": "Test",
+  "lname": "Test",
+  "email": "test",
+  "password": "test",
+  "bDate": 1234,
+  "image": "test"
+}
+
+###
