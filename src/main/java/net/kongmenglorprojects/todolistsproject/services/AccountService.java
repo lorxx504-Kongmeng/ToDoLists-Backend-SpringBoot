@@ -20,10 +20,10 @@ public class AccountService {
     }
 
     public AccountEntity createAccount(createDTO dto) {
-        if (dto.password.isBlank() || dto.email.isBlank() || dto.bDate == -1 || dto.image.isBlank() || dto.fname.isBlank() || dto.lname.isBlank()) {
+        if (dto.password.isBlank() || dto.email.isBlank() || dto.bDate == -1 || dto.fName.isBlank() || dto.lName.isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        return this.accountRepository.save(new AccountEntity(dto.fname,dto.lname,dto.email,dto.password, dto.bDate, dto.image));
+        return this.accountRepository.save(new AccountEntity(dto.fName,dto.lName,dto.email,dto.password, dto.bDate));
     }
 
     public AccountEntity login(String email, String password) {

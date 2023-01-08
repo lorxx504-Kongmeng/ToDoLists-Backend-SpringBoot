@@ -30,13 +30,12 @@ public class AccountEntity {
 
     public AccountEntity() {}
 
-    public AccountEntity(String fName, String lName, String email, String password, Long bDate, String image) {
+    public AccountEntity(String fName, String lName, String email, String password, Long bDate) {
         this.fName = fName;
         this.lName = lName;
         this.email = email;
         this.password = password;
         this.bDate = bDate;
-        this.image = image;
     }
 
     public Long getId() {
