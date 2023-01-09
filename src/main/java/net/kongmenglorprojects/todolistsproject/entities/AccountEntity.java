@@ -3,6 +3,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,9 +25,9 @@ public class AccountEntity {
     private String image;
 
     @OneToMany
-    private List<SocialMediaEntity> socialMedia;
+    private List<SocialMediaEntity> socialMedia = new ArrayList<>();
     @OneToMany
-    private List<ListsEntity> toDoLists;
+    private List<ListsEntity> toDoLists = new ArrayList<>();
 
     public AccountEntity() {}
 
