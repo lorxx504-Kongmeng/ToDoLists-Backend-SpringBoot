@@ -2,9 +2,10 @@ package net.kongmenglorprojects.todolistsproject.services;
 
 import net.kongmenglorprojects.todolistsproject.dto.addListDTO;
 import net.kongmenglorprojects.todolistsproject.dto.createDTO;
-import net.kongmenglorprojects.todolistsproject.dto.loginDTO;
+import net.kongmenglorprojects.todolistsproject.dto.socialMediaDTO;
 import net.kongmenglorprojects.todolistsproject.entities.AccountEntity;
 import net.kongmenglorprojects.todolistsproject.entities.ListsEntity;
+import net.kongmenglorprojects.todolistsproject.entities.SocialMediaEntity;
 import net.kongmenglorprojects.todolistsproject.repositories.AccountRepository;
 import net.kongmenglorprojects.todolistsproject.repositories.ListsRepository;
 import org.springframework.http.HttpStatus;
@@ -44,21 +45,42 @@ public class AccountService {
     }
 
     public List<ListsEntity> addTask(addListDTO dto) {
-        Optional<AccountEntity> account = this.accountRepository.findById(dto.id);
+        AccountEntity account = this.checkAccount(dto.id);
+        ListsEntity task = new ListsEntity(dto.date,dto.title,dto.description);
+        List<ListsEntity> lists = new ArrayList<>();
+        if (account.getToDoLists().isEmpty()) {
+            lists.add(task);
+            account.setToDoLists(lists);
+            this.accountRepository.save(account);
+            return account.getToDoLists();
+        }
+        lists = account.getToDoLists();
+        lists.add(task);
+        this.accountRepository.save(account);
+        return account.getToDoLists();
+    }
+
+    public List<SocialMediaEntity> addSocialMedia(socialMediaDTO dto) {
+        AccountEntity account = this.checkAccount(dto.id);
+        SocialMediaEntity sM = new SocialMediaEntity(dto.name,dto.platform,dto.url);
+        List<SocialMediaEntity> list = new ArrayList<>();
+        if (account.getSocialMedia().isEmpty()) {
+            list.add(sM);
+            account.setSocialMedia(list);
+            this.accountRepository.save(account);
+            return account.getSocialMedia();
+        }
+        list = account.getSocialMedia();
+        list.add(sM);
+        this.accountRepository.save(account);
+        return account.getSocialMedia();
+    }
+
+    public AccountEntity checkAccount(Long id) {
+        Optional<AccountEntity> account = this.accountRepository.findById(id);
         if(account.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        ListsEntity task = new ListsEntity(dto.date,dto.title,dto.description);
-        List<ListsEntity> lists = new ArrayList<>();
-        if (account.get().getToDoLists().isEmpty()) {
-            lists.add(task);
-            account.get().setToDoLists(lists);
-            this.accountRepository.save(account.get());
-            return account.get().getToDoLists();
-        }
-        lists = account.get().getToDoLists();
-        lists.add(task);
-        this.accountRepository.save(account.get());
-        return account.get().getToDoLists();
+        return account.get();
     }
 }

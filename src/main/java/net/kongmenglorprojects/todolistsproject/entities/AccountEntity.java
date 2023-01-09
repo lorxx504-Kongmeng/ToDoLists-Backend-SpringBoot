@@ -24,9 +24,9 @@ public class AccountEntity {
     @JsonProperty
     private String image;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<SocialMediaEntity> socialMedia = new ArrayList<>();
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<ListsEntity> toDoLists = new ArrayList<>();
 
     public AccountEntity() {}
