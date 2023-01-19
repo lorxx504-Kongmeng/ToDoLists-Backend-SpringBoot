@@ -12,7 +12,6 @@ import java.util.List;
 @CrossOrigin
 public class ListsController {
     ListsService listsService;
-
     public ListsController(ListsService listsService) {
         this.listsService = listsService;
     }
